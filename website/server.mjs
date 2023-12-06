@@ -11,8 +11,9 @@ let port = 3001
 
 db.connect();
 
-// Serve static HTML files in the current directory (called '.')
-app.use(express.static('.'))
+// Serve static HTML files in the chosen directory
+// Change the filepath if the index.html is moved
+app.use(express.static('./templates/'))
 
 // For GET requests to "/student?field1=value1&field2=value2"
 app.get('/student', function(request, response){
