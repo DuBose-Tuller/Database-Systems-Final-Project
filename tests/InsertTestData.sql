@@ -61,7 +61,6 @@ INSERT INTO plays VALUES (3, 2, 0, 0, 1, 20);
 INSERT INTO plays VALUES (4, 2, 0, 0, 1, 20);
 INSERT INTO plays VALUES (5, 2, 0, 0, 1, 20);
 INSERT INTO plays VALUES (6, 2, 0, 2, 0, 20);
-INSERT INTO plays VALUES (7, 1, 0, 0, 0, 20);
+INSERT INTO plays VALUES (7, 2, 0, 0, 0, 20);
 INSERT INTO plays VALUES (8, 2, 0, 0, 1, 20);
 INSERT INTO plays VALUES (9, 2, 0, 1, 0, 20);
-INSERT INTO plays VALUES (10, 2, 2, 1, 1, 20);
