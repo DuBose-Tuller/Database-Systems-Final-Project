@@ -15,12 +15,11 @@ db.connect();
 // Change the filepath if the index.html is moved
 app.use(express.static('./templates/'))
 
-// For GET requests to "/student?field1=value1&field2=value2"
-app.get('/student', function(request, response){
-    // If we have fields available
-    // console.log(request.query["field1"]);
+// For GET requests to "/player?name=<name>"
+app.get('/player', function(request, response){
+    let name = request.query["name"]
 
-    db.queryCallback((results) => {
+    db.testCallback(name, (results) => {
         response.json(results)
     })
 });

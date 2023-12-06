@@ -12,11 +12,15 @@
 <body>
 	<!-- We will populate this list via the database, see Javascript code below -->
 
-	<ul id="myList">
+	<ul id="playerList">
 	</ul>
 
-	<p> First way of getting dynamic content: Javascript fetch API </p>
-	<button onclick="fetchData()"> Click to display students </button>
+	<p> Get the information about a player from its name </p>
+	<label for="name">Name</label>
+	<input type="text" id="playerName" name="name" placeholder="(required)" required></input>
+	
+	<br>
+	<input type="submit" onclick="fetchPlayers()"></input>
 
 	<hr>
 
@@ -48,8 +52,9 @@
 </body>
 
 <script>
-	function fetchData() {
-		const responsePromise = fetch("/student", {
+	function fetchPlayers() {
+		let name = document.getElementById("playerName").value
+		const responsePromise = fetch("/player?name=" + name, {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
@@ -59,25 +64,25 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
-				populateList(await response.json())
+				populateListPlayer(await response.json())
 			},
 			// Error
 			(error) => {
-				alert("Cannot obtain students")
+				alert("Cannot obtain players")
 			})
 	}
 
 	// For testing in the HTML world
 	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
-	function populateList(results) {
-		let list = document.getElementById("myList")
+	function populateListPlayer(results) {
+		let players = document.getElementById("playerList")
 
 		results.forEach(element => {
-			let student = document.createElement("li")
+			let player = document.createElement("li")
+			player.innerText = "Name: " + element.name + "; ID: " + element.player_id
 
-			student.innerText = element.name
-
-			list.appendChild(student)
+			players.appendChild(player)
+			console.log(element)
 		})
 	}
 </script>
