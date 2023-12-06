@@ -1,22 +1,34 @@
+/*
+  A SQL script for setting up the schema for the db database.
+
+  Authors:
+    Shahin Ahmadi
+    Delario Nance, Jr.
+    Dubose Tuller
+
+  Date Written:
+    December 5, 2023
+*/
+
 DROP DATABASE IF EXISTS qb;
 CREATE SCHEMA qb;
 USE qb;
 
 CREATE TABLE player (
-	id		INT NOT NULL AUTO_INCREMENT,
+	player_id		INT NOT NULL AUTO_INCREMENT,
 	name				VARCHAR(100) NOT NULL,
 	major				VARCHAR(25) CHECK (major IN ('Science', 'History', 'Literature')),
 	minor				VARCHAR(25) CHECK (minor IN ('RMP', 'Geography', 'FA', 'Trash')),
 	 	
-	PRIMARY KEY (id)	
+	PRIMARY KEY (player_id)	
 );
 
 CREATE TABLE team (
-	id			INT NOT NULL AUTO_INCREMENT,
+	team_id			INT NOT NULL AUTO_INCREMENT,
 	name				VARCHAR(100) NOT NULL,
 	school 			VARCHAR(50),
 
-	PRIMARY KEY (id)
+	PRIMARY KEY (team_id)
 );
 
 -- Joint relation between player and team
@@ -25,27 +37,27 @@ CREATE TABLE playsOn (
 	team_id		INT,
 	
 	FOREIGN KEY (team_id) 
-			REFERENCES team(id),
+			REFERENCES team(team_id),
 
 	FOREIGN KEY (player_id) 
-		REFERENCES player(id),
+		REFERENCES player(player_id),
 
 	PRIMARY KEY(player_id, team_id)
 );
 
 CREATE TABLE qb_match(
-	id		INT NOT NULL AUTO_INCREMENT,
-	datetime		DATETIME,
+	match_id		INT NOT NULL AUTO_INCREMENT,
+	datetime		DATETIME, -- start of match
 	winner_id		INT,
 	loser_id		INT,
 		
 	FOREIGN KEY (winner_id) 
-		REFERENCES team(id),
+		REFERENCES team(team_id),
 		
 	FOREIGN KEY (loser_id) 
-		REFERENCES team(id),
+		REFERENCES team(team_id),
 		
-	PRIMARY KEY (id)
+	PRIMARY KEY (match_id)
 );
 
 -- Joint relation between player and match
@@ -58,10 +70,10 @@ CREATE TABLE plays (
 	num_tossups_heard	INT,
 	
 	FOREIGN KEY (player_id) 
-		REFERENCES player(id),
+		REFERENCES player(player_id),
 		
 	FOREIGN KEY (match_id)
-		REFERENCES qb_match(id),
+		REFERENCES qb_match(match_id),
 		
 	PRIMARY KEY (player_id, match_id)
 );
