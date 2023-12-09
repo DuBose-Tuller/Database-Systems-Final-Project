@@ -5,6 +5,7 @@
 import express from 'express';
 
 import * as db from "./db_mysql.mjs";
+import { redirect } from 'express/lib/response';
 
 var app = express();
 let port = 3001
@@ -19,7 +20,16 @@ app.use(express.static('./templates/'))
 app.get('/player', function(request, response){
     let name = request.query["name"]
 
-    db.testCallback(name, (results) => {
+    db.getAllPlayersByName(name, (results) => {
+        response.json(results)
+    })
+});
+
+app.get('/create-match', function(request, response){
+    let homeID = request.query["homeID"]
+    let awayID = request.query["awayID"]
+
+    db.createNewMatch(homeID, awayID, (results) => {
         response.json(results)
     })
 });

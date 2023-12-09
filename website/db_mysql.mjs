@@ -31,9 +31,22 @@ function disconnect() {
 	connection.end();
 }
 
-function testCallback(name, callback) {
+function getAllPlayersByName(name, callback) {
 	connection.query("SELECT * FROM (player NATURAL JOIN playson) WHERE player.name = ?",[name], (error, results, fields) => {
 		if (error) throw error;
+
+		console.log(results)
+		callback(results);
+	});
+}
+
+function createNewMatch(homeID, awayID, callback) {
+	connection.query("INSERT INTO qb_match VALUES (0, ?,?,?)",[new Date().toISOString().slice(0, 19).replace('T', ' '), homeID, awayID], (error, results, fields) => {
+	//connection.query("SELECT * FROM qb_match",[], (error, results, fields) => {
+		if (error) {
+			console.log(error);
+			throw error;
+		}
 
 		console.log(results)
 		callback(results);
@@ -45,7 +58,8 @@ export {
 	connection,
 	connect,
 	queryCallback,
-	testCallback,
+	getAllPlayersByName,
+	createNewMatch,
 	disconnect
 }
 
