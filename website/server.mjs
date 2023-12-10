@@ -5,7 +5,6 @@
 import express from 'express';
 
 import * as db from "./db_mysql.mjs";
-import { redirect } from 'express/lib/response';
 
 var app = express();
 let port = 3001
