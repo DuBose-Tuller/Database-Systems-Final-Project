@@ -4,10 +4,10 @@
 import { createConnection } from 'mysql2';
 
 var connection = createConnection({
-	host: 'localhost',
+	host: 'dubose.dcreate.domains',
 	user: 'root',
-	password: '123456',
-	database: 'qb'
+	password: 'S@n2fM97?~9E^~.',
+	database: 'dubosedc_quizbowl'
 });
 
 
