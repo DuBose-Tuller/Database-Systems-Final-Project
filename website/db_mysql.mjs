@@ -5,7 +5,7 @@ import { createConnection } from 'mysql2';
 
 var connection = createConnection({
 	host: 'dubose.dcreate.domains',
-	user: 'root',
+	user: 'dubosesc_root',
 	password: 'S@n2fM97?~9E^~.',
 	database: 'dubosedc_quizbowl'
 });
