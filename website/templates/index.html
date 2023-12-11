@@ -23,26 +23,23 @@
     </header>
 
 	<section id="content-section">
-        <h1 id="heading-one">This is </h1>
+        <h1 id="heading-one">Heading</h1>
+		<img src="Quizbowl_icon.jpg" alt="Quizbowl icon" id="sample-image">
+
         <h2>This is a heading level 2</h2>
-        <p>This is a sample paragraph. It contains some text to show you how paragraphs look in HTML.</p>
-        <a href="https://www.davidson.edu" target="_blank" id="external-link">Visit Davidson</a>
-        <img src="Quizbowl_icon.jpg" alt="Davidson Wildcat" id="sample-image">
+		<p>Already registered your teams? Enter the IDs for the two competing teams</p>
+		<label for="homeID">Home: </label>
+		<input type="text" id="homeID" name="homeID" placeholder="(required)" required></input>
+		<br>
+		<label for="awayID">Away: </label>
+		<input type="text" id="awayID" name="awayID" placeholder="(required)" required></input>
+		<br>
+		<input type="submit" onclick="startGame()"></input>
+
+		<p>New to the game? register your team:</p>
+		<a href="register" target="_blank" id="external-link">Register team</a>
+
     </section>
-
-	<p>New to the game? register your team:</p>
-	<a href="hyperlink">
-		<h1 style="font-size: 16px;">Register team</h1>
-	</a>
-
-	<p>Already registered? Enter the IDs for the two competing teams</p>
-	<label for="homeID">Home: </label>
-	<input type="text" id="homeID" name="homeID" placeholder="(required)" required></input>
-	<br>
-	<label for="awayID">Away: </label>
-	<input type="text" id="awayID" name="awayID" placeholder="(required)" required></input>
-	<br>
-	<input type="submit" onclick="startGame()"></input>
 
 	<!-- <p>Want to see your team's stats? Enter your team ID:</p>
 	<label for="teamID">TeamID: </label>

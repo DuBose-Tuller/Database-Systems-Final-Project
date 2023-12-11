@@ -53,6 +53,11 @@ app.get("/match", function(request, response) {
     console.log(matchID)
 });
 
+app.get("/register", function(request, response) {
+    response.sendFile(__dirname + "/templates/register.html")
+    console.log("Register Page")
+});
+
 app.listen(port, () => console.log('Server is starting on PORT,', port))
 
 process.on('exit', () => {

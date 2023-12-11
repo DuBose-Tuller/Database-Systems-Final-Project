@@ -11,8 +11,8 @@
 
     <table>
         <tr>
-            <th name="homeName"></th>
-            <th name="awayName"></th>
+            <th id="homeName"></th>
+            <th id="awayName"></th>
         </tr>
     </table>
 
@@ -20,6 +20,17 @@
 </body>
 
 <script>
+    // on startup
+    document.addEventListener('DOMContentLoaded', function() {
+        // Your function call goes here
+        getMatchInfo();
+    });
+
+    function getMatchInfo() {
+        console.log("test")
+    }
+
+
     function populateScoreForm(results) {
         let homeName = document.getElementById("homeName") 
         let awayName = document.getElementById("awayName")
