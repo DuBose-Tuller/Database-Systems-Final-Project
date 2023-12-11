@@ -2,27 +2,44 @@
 <html lang="en">
 
 <head>
-	<title>My First Webpage</title>
-	<meta charset="utf-8">
-
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quizbowl homepage</title>
 	<!-- You can also define the contents of the file inside a <style> tag -->
-	<link rel="stylesheet" href="../static/style.css">
+	<link rel="stylesheet" href="styles.css">
 </head>
 
-<body>
-	<p>New to the game? register your team:</p>
-	<a href="hyperlink">
-		<h1 style="font-size: 16px;">Register team</h1>
-	</a>
+<body id="main-body">
+	<div id="navbar">
+		<a id="home" href="index.html">Home</a>
+		<a id="match" href="match.html">Match</a>
+		<a id="services" href="services.html">Services</a>
+		<a id="contact" href="contact.html">Contact</a>
+	</div>
 
-	<p>Already registered? Enter the IDs for the two competing teams</p>
-	<label for="homeID">Home: </label>
-	<input type="text" id="homeID" name="homeID" placeholder="(required)" required></input>
-	<br>
-	<label for="awayID">Away: </label>
-	<input type="text" id="awayID" name="awayID" placeholder="(required)" required></input>
-	<br>
-	<input type="submit" onclick="startGame()"></input>
+	<header id="main-header">
+        <h1>Welcome to Quizbowl!</h1>
+        <p>Write cool description</p>
+    </header>
+
+	<section id="content-section">
+        <h1 id="heading-one">Heading</h1>
+		<img src="Quizbowl_icon.jpg" alt="Quizbowl icon" id="sample-image">
+
+        <h2>This is a heading level 2</h2>
+		<p>Already registered your teams? Enter the IDs for the two competing teams</p>
+		<label for="homeID">Home: </label>
+		<input type="text" id="homeID" name="homeID" placeholder="(required)" required></input>
+		<br>
+		<label for="awayID">Away: </label>
+		<input type="text" id="awayID" name="awayID" placeholder="(required)" required></input>
+		<br>
+		<input type="submit" onclick="startGame()"></input>
+
+		<p>New to the game? register your team:</p>
+		<a href="register" target="_blank" id="external-link">Register team</a>
+
+    </section>
 
 	<!-- <p>Want to see your team's stats? Enter your team ID:</p>
 	<label for="teamID">TeamID: </label>

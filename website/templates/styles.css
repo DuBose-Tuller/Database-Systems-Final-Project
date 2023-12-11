@@ -1,0 +1,98 @@
+/* Basic styling for the navbar */
+#navbar {
+    background-color: #333; /* Darker background */
+    overflow: hidden;
+    width: 100%; /* Full width */
+}
+#home, #match, #services, #contact {
+    float: left;
+    margin: 0;
+    padding: 20px 16px; /* Increased padding for better visibility */
+    text-decoration: none;
+    color: #fff; /* White text for contrast */
+    font-weight: bold; /* Bold font */
+}
+#home:hover, #match:hover, #services:hover, #contact:hover {
+    background-color: #555; /* Darker color on hover */
+}
+
+
+/* Global Styles */
+/* These styles apply to the entire webpage, giving it a cohesive look. */
+body {
+    font-family: Arial, sans-serif; /* Font for the whole webpage */
+    background-color: #f5f5f5; /* Background color for the webpage */
+    color: #333; /* Font color for the webpage */
+    display: flex; /* Making the body a flexible container */
+    flex-direction: column; /* Organizing content vertically */
+    align-items: center; /* Centering items horizontally */
+}
+
+/* Header Styles */
+/* These styles apply to the main header of the webpage, making it stand out. */
+#main-header {
+    background-color: #4CAF50; /* Background color for the header */
+    color: white; /* Font color for the header */
+    padding: 1rem; /* Space inside the header */
+    border-radius: 10px; /* Rounded corners */
+    text-align: center; /* Centering text inside the header */
+    margin-top: 2rem; /* Space above the header */
+}
+
+/* Content Section Styles */
+/* These styles apply to the main content area of the webpage. */
+#content-section {
+    background-color: #ffffff; /* Background color for the content area */
+    padding: 2rem; /* Space inside the content area */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    margin-top: 2rem; /* Space above the content area */
+    width: 80%; /* Content area taking up 80% of its container's width */
+    text-align: center; /* Centering text inside the content area */
+    display: flex; /* Making content a flexible container */
+    flex-direction: column; /* Organizing content vertically */
+    align-items: center; /* Centering items horizontally */
+}
+
+/* Styles for links inside the content section */
+#content-section a {
+    color: #4CAF50; /* Font color for links */
+    text-decoration: none; /* Removing underline from links */
+    display: block; /* Making links block elements for styling purposes */
+}
+#content-section a:hover {
+    text-decoration: underline; /* Adding underline when hovering over links */
+}
+
+/* Styles for images inside the content section */
+#sample-image {
+    height: 30%; /* Image height */
+    width: 30%; /* Image width */
+    margin-top: 1rem; /* Space above the image */
+    margin-left: auto; /* Horizontal centering part 1 */
+    margin-right: auto; /* Horizontal centering part 2 */
+}
+
+/* Footer Form Styles */
+/* These styles apply to a form located at the footer of the webpage. */
+#footer-form {
+    margin-top: 2rem; /* Space above the form */
+}
+#footer-form form {
+    display: flex; /* Making the form a flexible container */
+    flex-direction: column; /* Organizing form items vertically */
+    gap: 1rem; /* Space between form items */
+}
+
+/* Styles for the submit button inside the form */
+#submit-button {
+    background-color: #4CAF50; /* Background color for the button */
+    color: white; /* Font color for the button */
+    border: none; /* Removing borders from the button */
+    padding: 0.5rem 1rem; /* Space inside the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer; /* Changing cursor to hand when hovering over button */
+}
+#submit-button:hover {
+    background-color: #45a049; /* Darker background color when hovering over button */
+}

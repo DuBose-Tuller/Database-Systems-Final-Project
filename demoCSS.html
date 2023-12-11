@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled HTML Page</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Linking to the CSS file -->
+</head>
+
+<body id="main-body">
+
+    <header id="main-header">
+        <h1>Welcome to Web Development</h1>
+        <p>This is a simple HTML page.</p>
+    </header>
+
+    <section id="content-section">
+        <h1 id="heading-one">This is a heading level 1</h1>
+        <h2>This is a heading level 2</h2>
+        <p>This is a sample paragraph. It contains some text to show you how paragraphs look in HTML.</p>
+        <a href="https://www.davidson.edu" target="_blank" id="external-link">Visit Davidson</a>
+        <img src="../images/wildcat.png" alt="Davidson Wildcat" id="sample-image">
+    </section>
+
+    <footer id="footer-form">
+        <form action="/submit-form" method="POST">
+            <label for="username">Username:</label>
+            <input type="text" id="username-input" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password-input" name="password" required>
+
+            <input type="submit" value="Submit" id="submit-button">
+        </form>
+    </footer>
+
+</body>
+
+</html>
