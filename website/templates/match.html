@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<a href='index.html' >Other page</a>
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h1> Tossup Number </h1>
+
+    <table>
+        <tr>
+            <th name="homeName"></th>
+            <th name="awayName"></th>
+        </tr>
+    </table>
+
+    <input onclick="populateScoreForm()">TEST<input>
+</body>
+
+<script>
+    function populateScoreForm(results) {
+        let homeName = document.getElementById("homeName") 
+        let awayName = document.getElementById("awayName")
+
+        homeName.textContent = "TEST";
+    }
+</script>
+
+
