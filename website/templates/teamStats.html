@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Quizbowl homepage</title>
+	<!-- You can also define the contents of the file inside a <style> tag -->
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+
+<body>
+    <label for="teamID">Team ID: </label>
+	<input type="text" id="teamID" name="teamID"></input>
+    <input type="submit" onclick="fetchTeamStats()"></input>
+
+    <table id="teamStatsTable"> </table>
+
+</body>
+
+<script>
+    function fetchTeamStats() {
+        let teamID = document.getElementById("teamID").value
+
+        const responsePromise = fetch("/stats?teamID=" + teamID, {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				populateTeamsStats(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Cannot obtain team stats")
+			})
+    }
+
+    function populateTeamsStats(results) {
+        let statsTable = document.getElementById("teamStatsTable")
+
+        // results.forEach(team => {
+        //     document.createElement
+
+        //     team.forEach(stat => {
+        //         let teamStat = document
+        //     })
+        // });
+    }
+</script>
