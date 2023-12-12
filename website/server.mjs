@@ -58,6 +58,19 @@ app.get("/register", function(request, response) {
     console.log("Register Page")
 });
 
+app.get("/stats", function(request, response) {
+    let teamID = request.query["teamID"];
+
+    db.getTeamStats(teamID, (results) => {
+      response.json(results)
+    });
+
+});
+
+// Calls db.create_team() and then db.insertIntoPlaysOn 
+//    for each non-null player entered from the form
+app.get("/create-team");
+
 app.listen(port, () => console.log('Server is starting on PORT,', port))
 
 process.on('exit', () => {

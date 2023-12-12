@@ -1,1 +1,124 @@
-<h1>Register Page</h1>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register Page</title>
+	<link rel="stylesheet" href="styles.css">
+</head>
+
+<section id="content-section">
+    <style>
+        .input-container {
+          clear: both;
+          margin-bottom: 10px;
+        }
+      
+        label {
+          float: left;
+          width: 200px;
+        }
+      
+        input {
+          float: left;
+          width: 200px;
+        }
+      
+        /* Clearfix to clear the floats */
+        .clearfix::after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+      </style>
+
+    <h2>New to the game? Register as a new player:</h2>
+    <div class="input-container">
+    <label for="playerID">Player username: </label>
+    <input type="text" id="playerID" name="playerID" placeholder="(required)" required></input>
+    </div>
+
+    <input type="submit" onclick="registerPlayer()"></input>
+
+    <br>
+    
+    <h2>All members of your team are registered players? Register your team:</h2>
+    <div class="input-container">
+    <label for="P1ID">Player 1 username:</label>
+    <input type="text" id="P1ID" name="P1ID" placeholder="(required)" required>
+    </div>
+    
+    <div class="input-container">
+    <label for="P2ID">Player 2 username:</label>
+    <input type="text" id="P2ID" name="P2ID" placeholder="(optional)">
+    </div>
+    
+    <div class="input-container">
+    <label for="P3ID">Player 3 username:</label>
+    <input type="text" id="P3ID" name="P3ID" placeholder="(optional)">
+    </div>
+    
+    <div class="input-container">
+    <label for="P4ID">Player 4 username:</label>
+    <input type="text" id="P4ID" name="P4ID" placeholder="(optional)">
+    </div>
+    
+    <div class="input-container">
+    <label for="P5ID">Player 5 username:</label>
+    <input type="text" id="P5ID" name="P5ID" placeholder="(optional)">
+    </div>
+    
+    <div class="clearfix"></div>
+    
+    <input type="submit" onclick="registerTeam()">
+      
+</section>
+
+<script>
+	function registerPlayer() {
+		let username = document.getElementById("playerID").value
+		const responsePromise = fetch("/create-player/?username=" + username, {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				//redirectToMatch(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Failed to start match")
+				console.log(error)
+			})
+	}
+
+  function registerTeam() {
+    let p1 = document.getElementById("P1ID").value
+    let p2 = document.getElementById("P2ID").value
+    let p3 = document.getElementById("P3ID").value
+    let p4 = document.getElementById("P4ID").value
+    let p5 = document.getElementById("P5ID").value
+
+		const responsePromise = fetch("/create-team/?P1=" + p1 + "&P2=" + p2 + "&P3=" + p3 + "&P4=" + p4 + "&P5=" + p5, {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				//redirectToMatch(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Failed to start match")
+				console.log(error)
+			})
+	}
+</script>
+
+</html>

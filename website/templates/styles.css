@@ -4,7 +4,7 @@
     overflow: hidden;
     width: 100%; /* Full width */
 }
-#home, #match, #services, #contact {
+#home, #match, #teamStats, #contact {
     float: left;
     margin: 0;
     padding: 20px 16px; /* Increased padding for better visibility */

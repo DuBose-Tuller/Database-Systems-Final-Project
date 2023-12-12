@@ -2,6 +2,7 @@
 // Documentation in: https://www.npmjs.com/package/mysql2
 
 import { createConnection } from 'mysql2';
+import fs from "fs"
 
 var connection = createConnection({
 	host: 'dubose.dcreate.domains',
@@ -42,7 +43,6 @@ function getAllPlayersByName(name, callback) {
 
 function createNewMatch(homeID, awayID, callback) {
 	connection.query("INSERT INTO qb_match VALUES (0, ?,?,?)",[new Date().toISOString().slice(0, 19).replace('T', ' '), homeID, awayID], (error, results, fields) => {
-	//connection.query("SELECT * FROM qb_match",[], (error, results, fields) => {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -53,6 +53,40 @@ function createNewMatch(homeID, awayID, callback) {
 	});
 }
 
+// Inserts a new team into database
+function createTeam() {
+	connection.query("INSERT INTO team VALUES (0, &name)")
+	if (error) {
+		console.log(error);
+		throw error;
+	}
+
+	console.log(results)
+	callback(results);
+};
+
+// Assigns a player to a team
+function insertIntoPlaysOn() {
+	
+};
+
+function getTeamStats(teamID, callback) {
+	// Read the SQL file
+	let sqlQueries = fs.readFileSync('../tests/PlayerStats.sql', 'utf8');
+
+	// Split the file content by semicolon to get individual queries
+	let queriesArray = sqlQueries.split(';');
+	let query = queriesArray[1].replace("<team_id>", "?")
+	console.log(query);
+	connection.query(query,[teamID], (error, results, fields) => {
+		if (error) throw error;
+
+		console.log(results)
+		callback(results);
+	});
+}
+
+
 // Setup exports to include the external variables/functions
 export {
 	connection,
@@ -60,6 +94,9 @@ export {
 	queryCallback,
 	getAllPlayersByName,
 	createNewMatch,
+	getTeamStats,
+	createTeam,
+	insertIntoPlaysOn,
 	disconnect
 }
 
