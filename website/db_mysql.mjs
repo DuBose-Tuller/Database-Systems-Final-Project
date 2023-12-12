@@ -6,7 +6,7 @@ import fs from "fs"
 
 var connection = createConnection({
 	host: 'dubose.dcreate.domains',
-	user: 'dubosesc_root',
+	user: 'dubosedc_quizbowl',
 	password: 'S@n2fM97?~9E^~.',
 	database: 'dubosedc_quizbowl'
 });
