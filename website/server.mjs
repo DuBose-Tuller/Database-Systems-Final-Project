@@ -79,7 +79,20 @@ app.get("/stats", function(request, response) {
 
 // Calls db.create_team() and then db.insertIntoPlaysOn 
 //    for each non-null player entered from the form
-app.get("/create-team");
+app.get("/create-team", function(request, response) {
+  let name = request.query["name"]
+  let school = request.query["school"]
+  let playerOneID = request.query["P1"]
+  let playerTwoID = request.query["P2"]
+  let playerThreeID = request.query["P3"]
+  let playerFourID = request.query["P4"]
+  let playerFiveID = request.query["P5"]
+
+  // Insert team data into team relation
+  db.createTeam(name, school, (results) => {
+    response.json(results)
+  })
+});
 
 app.listen(port, () => console.log('Server is starting on PORT,', port))
 
