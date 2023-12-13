@@ -18,19 +18,18 @@
 
 	<header id="main-header">
         <h1>Welcome to Quizbowl!</h1>
-        <p>Write cool description</p>
+        <p>Test your knowledge in friendly competitions with friends</p>
     </header>
 
 	<section id="content-section">
-        <h1 id="heading-one">Heading</h1>
+        <h1 id="heading-one">Get in teams!</h1>
 		<img src="Quizbowl_icon.jpg" alt="Quizbowl icon" id="sample-image">
 
-        <h2>This is a heading level 2</h2>
 		<p>Already registered your teams? Enter the IDs for the two competing teams</p>
-		<label for="homeID">Home: </label>
+		<label for="homeID">Home team: </label>
 		<input type="text" id="homeID" name="homeID" placeholder="(required)" required></input>
 		<br>
-		<label for="awayID">Away: </label>
+		<label for="awayID">Away team: </label>
 		<input type="text" id="awayID" name="awayID" placeholder="(required)" required></input>
 		<br>
 		<input type="submit" onclick="startGame()"></input>
@@ -75,9 +74,12 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
-				console.log("Got a response for match creation!")
-				console.log(response)
-				window.location.replace("/match?matchID=1")
+				// console.log("Got a response for match creation!")
+				// console.log(await response)
+				// console.log(await response.insertId)
+				let dbResult = await response.json()
+				console.log(dbResult)
+				window.location.replace("/match?matchID=" + dbResult.insertId)
 			},
 			// Error
 			(error) => {
