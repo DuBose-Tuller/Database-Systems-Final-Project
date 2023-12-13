@@ -95,6 +95,17 @@ function getTeamStats(teamID, callback) {
 	});
 }
 
+function getPlayersFromMatch(matchID, callback) {
+	// Read the SQL file
+	let sqlString = fs.readFileSync('../queries/getPlayerAndTeamNamesFromMatchID.sql', 'utf8');
+
+	let query = sqlString.replace("<match_id>", "?")
+	connection.query(query,[matchID], (error, results, fields) => {
+		if (error) throw error;
+		callback(results);
+	});
+}
+
 
 // Setup exports to include the external variables/functions
 export {
@@ -107,6 +118,7 @@ export {
 	createTeam,
 	insertIntoPlaysOn,
 	getMatchInfoByID,
+	getPlayersFromMatch,
 	disconnect
 }
 
