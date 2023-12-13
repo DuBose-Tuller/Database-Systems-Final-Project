@@ -132,8 +132,7 @@
 			// Fulfilled
 			async (response) => {
         let teamResult = await response.json()
-        alert("Your new team's ID is " + teamResult["insertId"] + ". Please save it somewhere!. You can now return to the homepage to start a match or stay on this page to create new teams and players."
-        window.location.replace("/")
+        alert("Your new team's ID is " + teamResult["insertId"] + ". Please save it somewhere! You can now return to the homepage to start a match or stay on this page to create new teams and players.")
 				console.log("Team Result:" + teamResult)
         
 				//redirectToMatch(await response.json())
