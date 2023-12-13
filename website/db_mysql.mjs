@@ -48,7 +48,6 @@ function createNewMatch(homeID, awayID, callback) {
 			throw error;
 		}
 
-		console.log(results)
 		callback(results);
 	});
 }
