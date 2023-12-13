@@ -5,12 +5,16 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Quizbowl homepage</title>
-	<!-- You can also define the contents of the file inside a <style> tag -->
 	<link rel="stylesheet" href="styles.css">
 </head>
 
+<body id="main-body">
+	<div id="navbar">
+		<a id="home" href="/">Home</a>
+		<a id="teamStats" href="/teamStats.html">Team Stats</a>
+    	<a id="register" href="/register.html">Register</a>
+	</div>
 
-<body>
     <label for="teamID">Team ID: </label>
 	<input type="text" id="teamID" name="teamID"></input>
     <input type="submit" onclick="fetchTeamStats()"></input>

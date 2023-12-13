@@ -4,7 +4,7 @@
     overflow: hidden;
     width: 100%; /* Full width */
 }
-#home, #match, #teamStats, #contact {
+#home, #match, #teamStats, #register {
     float: left;
     margin: 0;
     padding: 20px 16px; /* Increased padding for better visibility */
@@ -12,7 +12,7 @@
     color: #fff; /* White text for contrast */
     font-weight: bold; /* Bold font */
 }
-#home:hover, #match:hover, #teamStats:hover, #contact:hover {
+#home:hover, #match:hover, #teamStats:hover, #register:hover {
     background-color: #555; /* Darker color on hover */
 }
 

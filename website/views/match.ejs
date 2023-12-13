@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Match Page</title>
-    <!-- Your HTML head content goes here -->
+  <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Match Page</title>
+  <link rel="stylesheet" href="../templates/styles.css">
 </head>
-<body>
-    <h1>Match Details</h1>
 
-    <p>Match ID:</p><p id="matchID"><%= match_id %></p>
-    <!-- Other HTML content based on matchID -->
-    <p>Home Team <%= winner_id %></p> 
-    <p>Away Team <%= loser_id %></p>
+<body id="main-body">
+	<div id="navbar">
+		<a id="home" href="/">Home</a>
+		<a id="teamStats" href="/teamStats.html">Team Stats</a>
+    <a id="register" href="/register.html">Register</a>
+	</div>
 
-    <input type="submit" onclick="getTossup()">Generate Tossup</input>
+  <h1>Match Details</h1>
+
+  <p>Match ID:</p><p id="matchID"><%= match_id %></p>
+  <!-- Other HTML content based on matchID -->
+  <p>Home Team <%= home_id %></p> 
+  <p>Away Team <%= away_id %></p>
+
+  <button id="getTossup">Get Next Tossup</button>
 
 </body>
 </html>
@@ -48,25 +57,26 @@
 
     
 
-    function getTossup() {
-        const responsePromise = fetch("https://www.qbreader.org/api/random-tossup", {
-			method: "GET",
-			headers: {
-				"Content-type": "application/json; charset=UTF-8"
-			}
-		});
-
-		responsePromise.then(
-			// Fulfilled
-			async (response) => {
-                console.log("Tossup:")
-				console.log(response)
-			},
-			// Error
-			(error) => {
-				alert("Failed to get a tossup")
-				console.log(error)
-			})
+    // Function to handle the API call
+    function callAPI() {
+      fetch('https://www.qbreader.org/api/random-tossup')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response failed');
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Process and use the retrieved data in your application
+          console.log(data);
+          // You can do more here with the API response data
+        })
+        .catch(error => {
+          console.error('There was a problem with the fetch operation:', error);
+        });
     }
+
+    // Attach the API call function to the button click event
+    document.getElementById('getTossup').addEventListener('click', callAPI);
 
 </script>
