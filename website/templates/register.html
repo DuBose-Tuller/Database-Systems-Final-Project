@@ -42,6 +42,16 @@
     
     <h2>All members of your team are registered players? Register your team:</h2>
     <div class="input-container">
+    <label for="P1ID">Team name:</label>
+    <input type="text" id="teamName" name="teamName" placeholder="(required)" required>
+    </div>
+
+    <div class="input-container">
+    <label for="P1ID">School:</label>
+    <input type="text" id="school" name="school" placeholder="(required)" required>
+    </div>
+
+    <div class="input-container">
     <label for="P1ID">Player 1 username:</label>
     <input type="text" id="P1ID" name="P1ID" placeholder="(required)" required>
     </div>
@@ -95,13 +105,15 @@
 	}
 
   function registerTeam() {
+    let name = document.getElementById("teamName").value
+    let school = document.getElementById("school").value
     let p1 = document.getElementById("P1ID").value
     let p2 = document.getElementById("P2ID").value
     let p3 = document.getElementById("P3ID").value
     let p4 = document.getElementById("P4ID").value
     let p5 = document.getElementById("P5ID").value
 
-		const responsePromise = fetch("/create-team/?P1=" + p1 + "&P2=" + p2 + "&P3=" + p3 + "&P4=" + p4 + "&P5=" + p5, {
+		const responsePromise = fetch("/create-team/?" + "name=" + name + "&school=" + school + "&P1=" + p1 + "&P2=" + p2 + "&P3=" + p3 + "&P4=" + p4 + "&P5=" + p5, {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
