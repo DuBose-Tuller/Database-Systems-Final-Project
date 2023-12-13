@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Match Page</title>
+    <!-- Your HTML head content goes here -->
+</head>
+<body>
+    <h1>Match Details</h1>
+
+    <p>Match ID:</p><p id="matchID"><%= match_id %></p>
+    <!-- Other HTML content based on matchID -->
+</body>
+</html>
+
+<script>
+    // Get all of the info
+    function getMatchInfo() {
+        let matchID = document.getElementById("matchID").innerHTML;
+        console.log("Fetching info for match " + matchID);
+		const responsePromise = fetch("/get-match?matchID=" + matchID, {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+				populateMatchData(await response.json())
+			},
+			// Error
+			(error) => {
+				alert("Cannot obtain players")
+			})
+    }
+
+    function populateMatchData(results) {
+        console.log("Populating info for")
+        console.log(results)
+    }
+
+
+    // // Run the function when the DOM is ready
+    // document.addEventListener("DOMContentLoaded", function(event) {
+    //     getMatchInfo(); 
+    // });
+
+</script>

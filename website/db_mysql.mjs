@@ -53,6 +53,18 @@ function createNewMatch(homeID, awayID, callback) {
 	});
 }
 
+function getMatchInfoByID(matchID, callback) {
+	connection.query("SELECT * FROM qb_match WHERE match_id = ?", [matchID] , (error, results, fields) => {
+		if (error) {
+			console.log(error);
+			throw error;
+		}
+
+		console.log(results)
+		callback(results);
+	});
+}
+
 // Inserts a new team into database
 function createTeam() {
 	connection.query("INSERT INTO team VALUES (0, &name)")
@@ -97,6 +109,7 @@ export {
 	getTeamStats,
 	createTeam,
 	insertIntoPlaysOn,
+	getMatchInfoByID,
 	disconnect
 }
 

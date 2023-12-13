@@ -117,7 +117,16 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
-				//redirectToMatch(await response.json())
+				console.log("Got a response for match creation!")
+				console.log(response)
+
+				// const responsePromise = fetch("/get-match?matchID=" + response.json["matchID"], {
+				// 	method: "GET",
+				// 	headers: {
+				// 		"Content-type": "application/json; charset=UTF-8"
+				// 	}
+				// });
+
 			},
 			// Error
 			(error) => {
