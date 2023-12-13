@@ -1,37 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Match Page</title>
-  <link rel="stylesheet" href="../templates/styles.css">
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Page</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
 
-<body id="main-body">
-	<div id="navbar">
-		<a id="home" href="/">Home</a>
-		<a id="teamStats" href="/teamStats.html">Team Stats</a>
-    <a id="register" href="/register.html">Register</a>
-	</div>
+  <body id="main-body">
+    <div id="navbar">
+      <a id="home" href="/">Home</a>
+      <a id="teamStats" href="/teamStats.html">Team Stats</a>
+      <a id="register" href="/register.html">Register</a>
+    </div>
 
-  <h1>Match Details</h1>
+    <section id="content-section">
 
-  <p>Match ID:</p><p id="matchID"><%= match_id %></p>
-  <!-- Other HTML content based on matchID -->
-  <p>Home Team <%= home_id %></p> 
-  <p>Away Team <%= away_id %></p>
+      <h1 id="heading-one">Match Details</h1>
 
-  <button id="getTossup">Get Next Tossup</button>
+      <p>Match ID:</p><p id="matchID"><%= match_id %></p>
 
-</body>
+      <table border="1">
+        <thead>
+            <tr>
+                <th>Home Team <%= home_id %></th>
+                <th>Away Team <%= away_id %></th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- JavaScript will generate rows here -->
+        </tbody>
+    </table>
+<!--
+        <p>Home Team <%= home_id %></p>
+        <p>Away Team <%= away_id %></p>
+-->
+      <button onclick="getTossup()">Get Next Tossup</button>
+
+      <p id="tossupText"></p>
+      <p id="tossupAnswer"></p>
+    </section>
+
+	<input type="submit" onclick="getPlayerAndTeamInfo()"></input>
+  </body>
 </html>
+
 
 <script>
     // Get all of the info
-    function getMatchInfo() {
+    function getPlayerAndTeamInfo() {
         let matchID = document.getElementById("matchID").innerHTML;
         console.log("Fetching info for match " + matchID);
-		const responsePromise = fetch("/get-match?matchID=" + matchID, {
+		const responsePromise = fetch("/get-players-from-match?matchID=" + matchID, {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
@@ -50,33 +70,61 @@
     }
 
     function populateMatchData(results) {
-        console.log("Populating info for")
-        console.log(results)
+      console.log("Populating info for")
+      console.log(results)
+
+      // Loop through the list L and create rows
+      for (var i = 0; i < L.length; i++) {
+        var row = document.createElement("tr");
+
+        var homeCell = document.createElement("td");
+        homeCell.textContent = "Home " + (i + 1);
+        row.appendChild(homeCell);
+
+        var awayCell = document.createElement("td");
+        awayCell.textContent = "Away " + (i + 1);
+        row.appendChild(awayCell);
+
+        var nameCell = document.createElement("td");
+        nameCell.textContent = "Name " + (i + 1);
+        row.appendChild(nameCell);
+
+        var userInputCell = document.createElement("td");
+        var userInput = document.createElement("input");
+        userInput.type = "text";
+        userInput.name = "userInput" + (i + 1); // Set a unique name for each input
+        userInputCell.appendChild(userInput);
+        row.appendChild(userInputCell);
+
+        tableBody.appendChild(row)
     }
+  }
 
 
     
 
     // Function to handle the API call
-    function callAPI() {
-      fetch('https://www.qbreader.org/api/random-tossup')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response failed');
-          }
-          return response.json();
-        })
-        .then(data => {
-          // Process and use the retrieved data in your application
-          console.log(data);
-          // You can do more here with the API response data
-        })
-        .catch(error => {
-          console.error('There was a problem with the fetch operation:', error);
-        });
+    function getTossup() {
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', 'https://www.qbreader.org/api/random-tossup', true);
+		xhr.onreadystatechange = function () {
+			if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				var data = JSON.parse(xhr.responseText);
+				console.log("Data received:", data);
+				let tossupText =  data.tossups[0]["question"];
+				let tossupAnswer = data.tossups[0]["formatted_answer"];
+				document.getElementById("tossupText").innerHTML = tossupText;
+				document.getElementById("tossupAnswer").innerHTML = tossupAnswer;
+				// Process and use the retrieved data in your application
+			} else {
+				console.error('Error:', xhr.status);
+			}
+			}
+		};
+		xhr.send();
     }
 
     // Attach the API call function to the button click event
     document.getElementById('getTossup').addEventListener('click', callAPI);
-
 </script>
