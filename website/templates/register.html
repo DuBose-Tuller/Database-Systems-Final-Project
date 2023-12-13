@@ -132,13 +132,14 @@
 			// Fulfilled
 			async (response) => {
         let teamResult = await response.json()
-				console.log("Team Result:" + teamResult)
+        alert("Your new team's ID is " + teamResult["insertId"] + ". Please save it somewhere!. You can now return to the homepage to start a match or stay on this page to create new teams and players."
         window.location.replace("/")
+				console.log("Team Result:" + teamResult)
+        
 				//redirectToMatch(await response.json())
 			},
 			// Error
 			(error) => {
-				alert("Failed to create team")
 				console.log(error)
 			})
 	}
