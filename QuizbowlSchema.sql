@@ -16,8 +16,8 @@ USE qb;
 
 CREATE TABLE player (
 	username		VARCHAR(100),
-	major			VARCHAR(25) CHECK (major IN ('Science', 'History', 'Literature')),
-	minor			VARCHAR(25) CHECK (minor IN ('RMP', 'Geography', 'FA', 'Trash')),
+	major			VARCHAR(25) CHECK (major IN (NULL, 'Science', 'History', 'Literature')),
+	minor			VARCHAR(25) CHECK (minor IN (NULL, 'RMP', 'Geography', 'FA', 'Trash')),
 	 	
 	PRIMARY KEY (username)	
 );
