@@ -49,15 +49,7 @@ app.get('/create-match', function(request, response){
     
 });
 
-// Display the actual page for the match
 app.get("/match", function(request, response) {
-    let matchID = request.query["match_id"]
-
-    response.render('match', { matchID: matchID });
-});
-
-// Endpoint that makes the query to get info about the match
-app.get("/get-match", function(request, response) {
     let matchID = request.query["matchID"]
     console.log("Hit the get-match endpoint")
     console.log(matchID)
@@ -66,8 +58,6 @@ app.get("/get-match", function(request, response) {
     db.getMatchInfoByID(matchID, (results) => {
       console.log("RESULTS")
       console.log(results);
-      // home = results.home etc.
-      //response.json(results)
       response.render('match', results[0])
   })
 
