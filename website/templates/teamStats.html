@@ -38,7 +38,8 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
-				populateTeamsStats(await response.json())
+				console.log(response)
+				populateTeamStats(await response.json())
 			},
 			// Error
 			(error) => {
@@ -46,20 +47,17 @@
 			})
     }
 
-    function populateTeamsStats(results) {
+    function populateTeamStats(results) {
         let statsTable = document.getElementById("teamStatsTable")
-		console.log(statsTable);
+		console.log(results);
+
+		let playerRow = document.createElement("tr")
 
 		results.forEach(player => {
-			
+			let playerName = document.createElement("td")
+			let playerPoints = document.createElement("td")
+			playerName.innerText = player["name"]
+			playerPoints.innerText = player["total_pts"]
 		});
-
-        // results.forEach(team => {
-        //     document.createElement
-
-        //     team.forEach(stat => {
-        //         let teamStat = document
-        //     })
-        // });
     }
 </script>

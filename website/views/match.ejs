@@ -11,6 +11,9 @@
     <!-- Other HTML content based on matchID -->
     <p>Home Team <%= winner_id %></p> 
     <p>Away Team <%= loser_id %></p>
+
+    <input type="submit" onclick="getTossup()">Generate Tossup</input>
+
 </body>
 </html>
 
@@ -43,9 +46,27 @@
     }
 
 
-    // // Run the function when the DOM is ready
-    // document.addEventListener("DOMContentLoaded", function(event) {
-    //     getMatchInfo(); 
-    // });
+    
+
+    function getTossup() {
+        const responsePromise = fetch("https://www.qbreader.org/api/random-tossup", {
+			method: "GET",
+			headers: {
+				"Content-type": "application/json; charset=UTF-8"
+			}
+		});
+
+		responsePromise.then(
+			// Fulfilled
+			async (response) => {
+                console.log("Tossup:")
+				console.log(response)
+			},
+			// Error
+			(error) => {
+				alert("Failed to get a tossup")
+				console.log(error)
+			})
+    }
 
 </script>

@@ -89,11 +89,8 @@ function getTeamStats(teamID, callback) {
 	// Split the file content by semicolon to get individual queries
 	let queriesArray = sqlQueries.split(';');
 	let query = queriesArray[1].replace("<team_id>", "?")
-	console.log(query);
 	connection.query(query,[teamID], (error, results, fields) => {
 		if (error) throw error;
-
-		console.log(results)
 		callback(results);
 	});
 }
