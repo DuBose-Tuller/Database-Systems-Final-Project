@@ -119,6 +119,7 @@
 			async (response) => {
 				console.log("Got a response for match creation!")
 				console.log(response)
+				window.location.replace("/get-match?matchID=1")
 
 				// const responsePromise = fetch("/get-match?matchID=" + response.json["matchID"], {
 				// 	method: "GET",
