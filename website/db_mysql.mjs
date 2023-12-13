@@ -5,9 +5,9 @@ import { createConnection } from 'mysql2';
 import fs from "fs"
 
 var connection = createConnection({
-	host: 'dubose.dcreate.domains',
+	host: 'domains.davidson.edu',
 	user: 'dubosedc_quizbowl',
-	password: 'S@n2fM97?~9E^~.',
+	password: 't4WW.&@)NKAg',
 	database: 'dubosedc_quizbowl'
 });
 
