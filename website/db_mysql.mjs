@@ -64,6 +64,19 @@ function getMatchInfoByID(matchID, callback) {
 	});
 }
 
+// Inserts a new player into database
+function createPlayer(username, major, minor, callback) {
+	connection.query("INSERT INTO player VALUES (?, ?, ?)", [username, major, minor], (error, results, fields) => {
+		if (error) {
+			console.log(error);
+			throw error;
+		}
+
+		console.log(results)
+		callback(results);
+	});
+};
+
 // Inserts a new team into database
 function createTeam(name, school, callback) {
 	connection.query("INSERT INTO team VALUES (0, ?, ?)", [name, school], (error, results, fields) => {
@@ -115,6 +128,7 @@ export {
 	getAllPlayersByName,
 	createNewMatch,
 	getTeamStats,
+	createPlayer,
 	createTeam,
 	insertIntoPlaysOn,
 	getMatchInfoByID,

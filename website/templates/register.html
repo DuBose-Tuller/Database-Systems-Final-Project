@@ -39,8 +39,29 @@
 
     <h2>New to the game? Register as a new player:</h2>
     <div class="input-container">
-    <label for="playerID">Player username: </label>
-    <input type="text" id="playerID" name="playerID" placeholder="(required)" required></input>
+    <label for="username">Player username: </label>
+    <input type="text" id="username" name="username" placeholder="(required)" required></input>
+    </div>
+
+    <div class="input-container">
+      <label for="major">Major: </label>
+      <select name="major" id="major" optional>
+        <option value=""></option>
+        <option value="Science">Science</option>
+        <option value="History">History</option>
+        <option value="Literature">Literature</option>
+      </select>
+    </div>
+
+    <div class="input-container">
+      <label for="minor">Minor: </label>
+      <select name="minor" id="minor" optional>
+        <option value=""></option>
+        <option value="RMP">Religion, Mythology, and Philosophy</option>
+        <option value="Geography">Geography</option>
+        <option value="FA">Fine Arts</option>
+        <option value="Trash">Trash</option>
+      </select>
     </div>
 
     <input type="submit" onclick="registerPlayer()"></input>
@@ -92,8 +113,10 @@
 
 <script>
 	function registerPlayer() {
-		let username = document.getElementById("playerID").value
-		const responsePromise = fetch("/create-player/?username=" + username, {
+		let username = document.getElementById("username").value
+    let major = document.getElementById("major").value
+    let minor = document.getElementById("minor").value
+		const responsePromise = fetch("/create-player/?" + "username=" + username + "&major=" + major + "&minor=" + minor, {
 			method: "GET",
 			headers: {
 				"Content-type": "application/json; charset=UTF-8"
@@ -103,6 +126,9 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
+        let playerResult = await response.json()
+        console.log("Player Result:" + playerResult)
+        alert("Successfully added " + username + " with major " + major + " and minor " + minor + "! You can now return to the homepage to start a match or stay on this page to create new teams and players.")
 				//redirectToMatch(await response.json())
 			},
 			// Error
@@ -132,8 +158,8 @@
 			// Fulfilled
 			async (response) => {
         let teamResult = await response.json()
+        console.log("Team Result:" + teamResult)
         alert("Your new team's ID is " + teamResult["insertId"] + ". Please save it somewhere! You can now return to the homepage to start a match or stay on this page to create new teams and players.")
-				console.log("Team Result:" + teamResult)
         
 				//redirectToMatch(await response.json())
 			},

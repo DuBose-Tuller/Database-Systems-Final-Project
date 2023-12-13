@@ -86,6 +86,17 @@ app.get("/stats", function(request, response) {
 
 });
 
+app.get("/create-player", function(request, response) {
+  let username = request.query["username"]
+  let major = request.query["major"]
+  let minor = request.query["minor"]
+
+  // Insert player data into player relation
+  db.createPlayer(username, major, minor, (results) => {
+    response.json(results)   
+  })
+})
+
 // Calls db.create_team() and then db.insertIntoPlaysOn 
 //    for each non-null player entered from the form
 app.get("/create-team", function(request, response) {
