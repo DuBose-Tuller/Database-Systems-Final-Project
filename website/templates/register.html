@@ -131,6 +131,9 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
+        let teamResult = await response.json()
+				console.log("Team Result:" + teamResult)
+        window.location.replace("/")
 				//redirectToMatch(await response.json())
 			},
 			// Error

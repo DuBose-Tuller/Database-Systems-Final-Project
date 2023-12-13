@@ -66,7 +66,7 @@ function getMatchInfoByID(matchID, callback) {
 
 // Inserts a new team into database
 function createTeam(name, school, callback) {
-	connection.query("INSERT INTO team VALUES (0, ?, ?)", [name, school], (erorr, results, fields) => {
+	connection.query("INSERT INTO team VALUES (0, ?, ?)", [name, school], (error, results, fields) => {
 		if (error) {
 			console.log(error);
 			throw error;
@@ -78,8 +78,8 @@ function createTeam(name, school, callback) {
 };
 
 // Assigns a player to a team
-function insertIntoPlaysOn() {
-	
+function insertIntoPlaysOn(playerUsername, teamID) {
+	connection.query("INSERT INTO playsOn VALUES (?, ?)", [playerUsername, teamID])
 };
 
 function getTeamStats(teamID, callback) {
