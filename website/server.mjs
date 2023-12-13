@@ -20,6 +20,9 @@ db.connect();
 // Change the filepath if the index.html is moved
 app.use(express.static('./templates/'))
 
+app.set('view engine', 'ejs');
+app.set('views', __dirname + '/views'); // Set the directory where your views (templates) are stored
+
 app.get("/", (request, response) => {
     response.sendFile(__dirname + "/templates/index.html")
 });
@@ -39,18 +42,25 @@ app.get('/create-match', function(request, response){
 
     db.createNewMatch(homeID, awayID, (results) => {
         response.json(results)
-        
+        //response.send(results)
+        //response.redirect("/get-match?matchID=" + results.insertId);
     })
 
-    // Redirect to /match/<results.insertId>
-    response.redirect("/match/") // doesn't work
+    
 });
 
 app.get("/match", function(request, response) {
     let matchID = request.query["matchID"]
-    response.sendFile(__dirname + "/templates/match.html")
-
+    console.log("Hit the get-match endpoint")
     console.log(matchID)
+
+    // Query the database to get info about the match
+    db.getMatchInfoByID(matchID, (results) => {
+      console.log("RESULTS")
+      console.log(results);
+      response.render('match', results[0])
+  })
+
 });
 
 app.get("/register", function(request, response) {

@@ -15,7 +15,12 @@
 	<input type="text" id="teamID" name="teamID"></input>
     <input type="submit" onclick="fetchTeamStats()"></input>
 
-    <table id="teamStatsTable"> </table>
+    <table id="teamStatsTable">
+		<tr>
+			<th>Name</th>
+			<th>Total Points</th>
+		</tr>	
+	</table>
 
 </body>
 
@@ -43,6 +48,11 @@
 
     function populateTeamsStats(results) {
         let statsTable = document.getElementById("teamStatsTable")
+		console.log(statsTable);
+
+		results.forEach(player => {
+			
+		});
 
         // results.forEach(team => {
         //     document.createElement

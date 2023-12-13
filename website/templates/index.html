@@ -117,7 +117,9 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
-				//redirectToMatch(await response.json())
+				console.log("Got a response for match creation!")
+				console.log(response)
+				window.location.replace("/match?matchID=1")
 			},
 			// Error
 			(error) => {
