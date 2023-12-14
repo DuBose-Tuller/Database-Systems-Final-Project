@@ -49,14 +49,14 @@ app.get('/create-match', function(request, response){
  
 });
 
-app.get("/get-players-from-match", function(request, response) {
-    let matchID = request.query["matchID"]
+// app.get("/get-players-from-match", function(request, response) {
+//     let matchID = request.query["matchID"]
 
-    db.getPlayersFromMatch(matchID, (results) => {
-      console.log(results)
-      response.json(results);
-    })
-});
+//     db.getPlayersFromMatch(matchID, (results) => {
+//       console.log(results)
+//       response.json(results);
+//     })
+// });
 
 app.get("/match", function(request, response) {
     let matchID = request.query["matchID"]
@@ -64,10 +64,10 @@ app.get("/match", function(request, response) {
     console.log(matchID)
 
     // Query the database to get info about the match
-    db.getMatchInfoByID(matchID, (results) => {
+    db.getPlayersFromMatch(matchID, (results) => {
       console.log("RESULTS")
       console.log(results);
-      response.render('match', results[0])
+      response.render('match', {"results": results})
   })
 
 });

@@ -18,23 +18,21 @@
 
       <h1 id="heading-one">Match Details</h1>
 
-      <p>Match ID:</p><p id="matchID"><%= match_id %></p>
+      <p>Match ID:</p><p id="matchID"><%= results[0]["match_id"] %></p>
+    <table>
+      <tr>
+        <th><%= results[0].name %></th>
+        <th><%= results[results.length-1].name %></th>
+    </tr>
 
-      <table border="1">
-        <thead>
-            <tr>
-                <th>Home Team <%= home_id %></th>
-                <th>Away Team <%= away_id %></th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-            <!-- JavaScript will generate rows here -->
-        </tbody>
-    </table>
-<!--
-        <p>Home Team <%= home_id %></p>
-        <p>Away Team <%= away_id %></p>
--->
+    <% for(var i=0; i < results.length; i++) { %>
+      <tr>
+        <td><%= results[i].username %></td>
+        <td><%= results[i].username %></td>
+      </tr>
+   <% } %>
+      </table>
+
       <button onclick="getTossup()">Get Next Tossup</button>
 
       <p id="tossupText"></p>
