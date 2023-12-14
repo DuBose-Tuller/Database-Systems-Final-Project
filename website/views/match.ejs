@@ -25,10 +25,27 @@
         <th><%= results[results.length-1].name %></th>
     </tr>
 
-    <% for(var i=0; i < results.length; i++) { %>
+    <% let t = 0 %>
+    <% let b = results.length - 1 %>
+    <% var homePlayer = "" %>
+    <% var awayPlayer = "" %>
+    <% while(t <= b) { %>
       <tr>
-        <td><%= results[i].username %></td>
-        <td><%= results[i].username %></td>
+        <% if(results[t].name == results[0].name){ %>
+          <%= homePlayer = results[t].username %>
+          <% t++ %>
+        <% } %>
+
+        <% if(results[b].name == results[results.length-1].name){ %>
+          <%= awayPlayer = results[b].username %>
+          <% b-- %>
+        <% } %>
+
+        <td><%= homePlayer %></td>
+        <td><%= awayPlayer %></td>
+
+        <% var homePlayer = "" %>
+        <% var awayPlayer = "" %>
       </tr>
    <% } %>
       </table>
