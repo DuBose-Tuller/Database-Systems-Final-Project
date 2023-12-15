@@ -5,6 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Match Page</title>
     <link rel="stylesheet" href="/styles.css">
+
+    <style>
+      .small-dropdown {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        width: 150px;
+    }
+
+    #tossupWordWithTossupNumber {
+      display: none;
+    }
+
+    #buttonContainer button {
+      display: inline-block;
+      margin-right: 10px;
+      margin-top: 20px;
+    }
+    
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5; /* Light Gray */
+      margin: 0;
+      padding: 0;
+      color: #00205b; /* NAQT Blue */
+    }
+
+    /* Page header */
+    header {
+      background-color: #ffc72c; /* NAQT Gold */
+      padding: 20px;
+      text-align: center;
+      color: #00205b; /* NAQT Blue */
+    }
+
+    /* Main content */
+    main {
+      padding: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 75%;
+      margin-bottom: 20px;
+    }
+
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      text-align: center;
+      color: #00205b; /* NAQT Blue */
+      background-color: #ffc72c; /* NAQT Gold */
+    }
+
+    .small-dropdown {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    /* Background color for table rows */
+    tr {
+      background-color: #f5f5f5; /* Light Gray */
+    }
+
+    button:hover {
+      background-color: #ffdb7a; /* Lighter NAQT Gold on hover */
+    }
+
+    #tossupText {
+      text-align: left;
+    }
+
+    #tossupAnswer {
+      text-align: left;
+    }
+
+    #paragraphForTossupAnswer {
+      text-align: left;
+      display: none 
+    }
+
+    </style>
   </head>
 
   <body id="main-body">
@@ -16,130 +105,169 @@
 
     <section id="content-section">
 
-      <h1 id="heading-one">Match Details</h1>
+      <h2><span id="greetingsMessage">Greetings! To start the match, click the "Get Next Tossup" button below! Before additional clicks of "Get Next Tossup" button, remember to enter the points of the players who got the tossup or negged!</span></h2>
+      
+      <h2><span id="tossupWordWithTossupNumber">Tossup <span id="tossupNumber">0</span></span></h2>
 
-      <p>Match ID:</p><p id="matchID"><%= results[0]["match_id"] %></p>
+      <div id="tossupTextAndAnswer">
+        <p id="tossupText"></p>
+        <p id="paragraphForTossupAnswer"><b>ANSWER:</b> <span id="tossupAnswer"></span></p>
+      </div>
+
+      
+      
+      <br>
+      <br>
+      <br>
+      <br>
+
+
     <table>
       <tr>
-        <th><%= results[0].name %></th>
-        <th><%= results[results.length-1].name %></th>
-    </tr>
-
-    <% let t = 0 %>
-    <% let b = results.length - 1 %>
-    <% var homePlayer = "" %>
-    <% var awayPlayer = "" %>
-    <% while(t <= b) { %>
-      <tr>
-        <% if(results[t].name == results[0].name){ %>
-          <%= homePlayer = results[t].username %>
-          <% t++ %>
-        <% } %>
-
-        <% if(results[b].name == results[results.length-1].name){ %>
-          <%= awayPlayer = results[b].username %>
-          <% b-- %>
-        <% } %>
-
-        <td><%= homePlayer %></td>
-        <td><%= awayPlayer %></td>
-
-        <% var homePlayer = "" %>
-        <% var awayPlayer = "" %>
+        <th colspan="2"><%= results[0].name %></th>
+        <th colspan="2"><%= results[results.length-1].name %></th>
       </tr>
-   <% } %>
-      </table>
+      
+      <% let t = 0 %>
+      <% let b = results.length - 1 %>
+      <% var homePlayer = "" %>
+      <% var awayPlayer = "" %>
+      <% while(t <= b) { %>
+        <tr>
+          <% if(results[t].name == results[0].name){ %>
+            <%= homePlayer = results[t].username %>
+            <% t++ %>
+          <% } %>
+    
+          <% if(results[b].name == results[results.length-1].name){ %>
+            <%= awayPlayer = results[b].username %>
+            <% b-- %>
+          <% } %>
+    
+          <td><%= homePlayer %></td>
+          <td>
+            <select id="dropdown-home-<%= t %>" class="small-dropdown" onchange="saveValue(this)">
+              <option value="" selected></option>
+              <option value="-5">-5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </td>
+          <td><%= awayPlayer %></td>
+          <td>
+            <select id="dropdown-away-<%= b %>" class="small-dropdown" onchange="saveValue(this)">
+              <option value="" selected></option>
+              <option value="-5">-5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
+          </td>
+    
+          <% var homePlayer = "" %>
+          <% var awayPlayer = "" %>
+        </tr>
+      <% } %>
+    </table>
 
+    <div id="buttonContainer">
       <button onclick="getTossup()">Get Next Tossup</button>
+      <button onclick="getAllSavedValues()">End Match</button>
+    </div>
 
-      <p id="tossupText"></p>
-      <p id="tossupAnswer"></p>
+
+
     </section>
 
-	<input type="submit" onclick="getPlayerAndTeamInfo()"></input>
+	<!-- <input type="submit" onclick="getPlayerAndTeamInfo()"></input> -->
   </body>
 </html>
 
 
 <script>
-    // Get all of the info
-    function getPlayerAndTeamInfo() {
-        let matchID = document.getElementById("matchID").innerHTML;
-        console.log("Fetching info for match " + matchID);
-		const responsePromise = fetch("/get-players-from-match?matchID=" + matchID, {
-			method: "GET",
-			headers: {
-				"Content-type": "application/json; charset=UTF-8"
-			}
-		});
+    function saveValue(dropdown) {
+      var selectedValue = dropdown.value;
+      var dropdownId = dropdown.id;
 
-		responsePromise.then(
-			// Fulfilled
-			async (response) => {
-				populateMatchData(await response.json())
-			},
-			// Error
-			(error) => {
-				alert("Cannot obtain players")
-			})
+      // Save the selected value in the browser's localStorage
+      localStorage.setItem(dropdownId, selectedValue);
     }
 
-    function populateMatchData(results) {
-      console.log("Populating info for")
-      console.log(results)
+    function getAllSavedValues() {
+      // Retrieve all saved values from localStorage
+      var savedValues = {};
 
-      // MAKE FOR LOOP
-      for (var i = 0; i < L.length; i++) {
-        var row = document.createElement("tr");
+      for (var i = 0; i < localStorage.length; i++) {
+        var key = localStorage.key(i);
+        savedValues[key] = localStorage.getItem(key);
+      }
 
-        var homeCell = document.createElement("td");
-        homeCell.textContent = "Home " + (i + 1);
-        row.appendChild(homeCell);
-
-        var awayCell = document.createElement("td");
-        awayCell.textContent = "Away " + (i + 1);
-        row.appendChild(awayCell);
-
-        var nameCell = document.createElement("td");
-        nameCell.textContent = "Name " + (i + 1);
-        row.appendChild(nameCell);
-
-        var userInputCell = document.createElement("td");
-        var userInput = document.createElement("input");
-        userInput.type = "text";
-        userInput.name = "userInput" + (i + 1); // Set a unique name for each input
-        userInputCell.appendChild(userInput);
-        row.appendChild(userInputCell);
-
-        tableBody.appendChild(row)
+      console.log(savedValues); // Modify this part as needed (e.g., display, process, etc.)
     }
-  }
-
-
-    
 
     // Function to handle the API call
     function getTossup() {
-		var xhr = new XMLHttpRequest();
-		xhr.open('GET', 'https://www.qbreader.org/api/random-tossup', true);
-		xhr.onreadystatechange = function () {
-			if (xhr.readyState === XMLHttpRequest.DONE) {
-			if (xhr.status === 200) {
-				var data = JSON.parse(xhr.responseText);
-				console.log("Data received:", data);
-				let tossupText =  data.tossups[0]["question"];
-				let tossupAnswer = data.tossups[0]["formatted_answer"];
-				document.getElementById("tossupText").innerHTML = tossupText;
-				document.getElementById("tossupAnswer").innerHTML = tossupAnswer;
-				// Process and use the retrieved data in your application
-			} else {
-				console.error('Error:', xhr.status);
-			}
-			}
-		};
-		xhr.send();
+
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://www.qbreader.org/api/random-tossup', true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+          var data = JSON.parse(xhr.responseText);
+          console.log("Data received:", data);
+          let tossupText =  data.tossups[0]["question"];
+          let tossupAnswer = data.tossups[0]["formatted_answer"];
+          document.getElementById("tossupText").innerHTML = tossupText;
+          document.getElementById("tossupAnswer").innerHTML = tossupAnswer;
+          // Process and use the retrieved data in your application
+        } else {
+          console.error('Error:', xhr.status);
+        }
+        }
+      };
+      
+      xhr.send();
+      
+      // Make the initial greeting message invisible
+      var greetingsElement = document.getElementById("greetingsMessage")
+      greetingsElement.style.display = "none"
+
+      // Update the Tossup number
+      var tossupNumberElement = document.getElementById("tossupNumber")
+      var currentTossupNumber = parseInt(tossupNumberElement.innerText, 10)
+      var nextTossupNumber = currentTossupNumber + 1
+      tossupNumberElement.innerText = nextTossupNumber
+
+      // Make the tossup heading visible
+      var tossupHeading = document.getElementById("tossupWordWithTossupNumber")
+      tossupHeading.style.display = "inline"   
+
+      // Make the tossup answerline visible
+      var paragraphForTossupAnswer = document.getElementById("paragraphForTossupAnswer")
+      paragraphForTossupAnswer.style.display = "inline"
+      
+      // Put border around table
+      var tossupTextAndAnswerElement = document.getElementById("tossupTextAndAnswer")
+      tossupTextAndAnswerElement.style.border = "2px solid black";
+
+
+      // Update the scores in the database
+      updateScores();
+
+      // Reset all dropdowns to their initial state
+      var dropdowns = document.querySelectorAll('.small-dropdown');
+      dropdowns.forEach(function(dropdown) {
+        dropdown.selectedIndex = 0; // Set to the first option (hidden option)
+      });
     }
+
+
+    function updateScores() {
+      console.log("here")
+    };
 
     // Attach the API call function to the button click event
     document.getElementById('getTossup').addEventListener('click', callAPI);
+    
+
+
 </script>
