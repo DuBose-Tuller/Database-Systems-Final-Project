@@ -216,7 +216,7 @@
           console.log("Data received:", data);
           let tossupText =  data.tossups[0]["question"];
           let tossupAnswer = data.tossups[0]["formatted_answer"];
-          document.getElementById("tossupText").innerHTML = tossupText;
+          document.getElementById("tossupText").innerHTML = boldPowerText(tossupText);
           document.getElementById("tossupAnswer").innerHTML = tossupAnswer;
           // Process and use the retrieved data in your application
         } else {
@@ -258,6 +258,13 @@
       dropdowns.forEach(function(dropdown) {
         dropdown.selectedIndex = 0; // Set to the first option (hidden option)
       });
+    }
+
+    function boldPowerText(tossupText) {
+      if (tossupText.includes("(*)")) { // might not work on old browsers
+        return "<b>" + tossupText.replace("(*)", "(*)</b>")
+      }
+      return tossupText
     }
 
 
