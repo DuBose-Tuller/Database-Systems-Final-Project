@@ -15,7 +15,7 @@
         width: 150px;
     }
 
-    #tossupWordWithTossupNumber {
+    #tossupHeading {
       display: none;
     }
 
@@ -107,7 +107,7 @@
 
       <h2><span id="greetingsMessage">Greetings! To start the match, click the "Get Next Tossup" button below! Before additional clicks of "Get Next Tossup" button, remember to enter the points of the players who got the tossup or negged!</span></h2>
       
-      <h2><span id="tossupWordWithTossupNumber">Tossup <span id="tossupNumber">0</span></span></h2>
+      <h2><span id="tossupHeading">Tossup <span id="tossupNumber">0</span> <span id="tossupCategory"></span> <span id="tossupSubcategory"></span></h2>
 
       <div id="tossupTextAndAnswer">
         <p id="tossupText"></p>
@@ -214,10 +214,14 @@
         if (xhr.status === 200) {
           var data = JSON.parse(xhr.responseText);
           console.log("Data received:", data);
+          let category = data.tossups[0]["category"];
+          let subCategory = data.tossups[0]["subcategory"];
           let tossupText =  data.tossups[0]["question"];
           let tossupAnswer = data.tossups[0]["formatted_answer"];
           document.getElementById("tossupText").innerHTML = boldPowerText(tossupText);
           document.getElementById("tossupAnswer").innerHTML = tossupAnswer;
+          document.getElementById("tossupCategory").innerText = "- " + category
+          document.getElementById("tossupSubcategory").innerText = "(" + subCategory + ")"
           // Process and use the retrieved data in your application
         } else {
           console.error('Error:', xhr.status);
@@ -231,6 +235,9 @@
       var greetingsElement = document.getElementById("greetingsMessage")
       greetingsElement.style.display = "none"
 
+      // Make the tossup heading invisible
+      document.getElementById("tossupHeading").style.display = "none"
+
       // Update the Tossup number
       var tossupNumberElement = document.getElementById("tossupNumber")
       var currentTossupNumber = parseInt(tossupNumberElement.innerText, 10)
@@ -238,7 +245,6 @@
       tossupNumberElement.innerText = nextTossupNumber
 
       // Make the tossup heading visible
-      var tossupHeading = document.getElementById("tossupWordWithTossupNumber")
       tossupHeading.style.display = "inline"   
 
       // Make the tossup answerline visible
