@@ -95,9 +95,23 @@ function insertIntoPlaysOn(playerUsername, teamID) {
 	connection.query("INSERT INTO playsOn VALUES (?, ?)", [playerUsername, teamID])
 };
 
-function updatePlayerScore(numPowersOnTossup, numTensOnTossup, numNegsOnTossup, username, matchID) {
-	connection.query("UPDATE plays SET num_powers = num_powers + ?, num_tens = num_tens = ?, num_negs = num_negs + ? WHERE username = ? AND match_id = matchID",
-	[numPowersOnTossup, numTensOnTossup, numNegsOnTossup, username, matchID])
+function initializePlayerScore(username, matchID) {
+	connection.query("INSERT INTO plays VALUES (?, ?, 0, 0, 0, 0)", [username, matchID])
+};
+
+function updatePlayerScore(numPowersOnTossup, numTensOnTossup, numNegsOnTossup, username, matchID, callback) {
+	connection.query("UPDATE plays SET num_powers = num_powers + ?, num_tens = num_tens = ?, num_negs = num_negs + ?, num_tossups_heard = num_tossups_heard + 1 WHERE username = ? AND match_id = ?",
+	[numPowersOnTossup, numTensOnTossup, numNegsOnTossup, username, matchID],
+	(error, results, fields) => {
+		if (error) {
+			console.log(error);
+			throw error;
+		}
+
+		console.log(results.affectedRows)
+		console.log(results)
+		callback(results);
+	})
 }
 
 function getTeamStats(teamID, callback) {
@@ -136,6 +150,7 @@ export {
 	createPlayer,
 	createTeam,
 	insertIntoPlaysOn,
+	initializePlayerScore,
 	updatePlayerScore,
 	getMatchInfoByID,
 	getPlayersFromMatch,
