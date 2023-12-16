@@ -49,10 +49,16 @@ app.get('/create-match', function(request, response){
 
 
 app.get("/match", function(request, response) {
-    let matchID = request.query["matchID"]
+    var matchID = request.query["matchID"]
 
     // Query the database to get info about the match
     db.getPlayersFromMatch(matchID, (results) => {
+
+      for (const row of results) {
+        let username = row["username"]
+        var matchID = request.query["matchID"]
+        db.initializePlayerScore(username, matchID);
+      }
       response.render('match', {"results": results})
   })
 
@@ -111,6 +117,15 @@ app.get("/create-team", function(request, response) {
   })
 })
 
+app.get("/initialize-player-score", function(request, response) {
+  let username = request.query["username"]
+  let matchID = request.query["matchID"]
+
+  db.initializePlayerScore(username, matchID, (results) => {
+    response.json(results)
+  })
+})
+
 app.get("/update-player-score", function(request, response) {
   let username = request.query["username"]
   let matchID = request.query["matchID"]
@@ -118,8 +133,9 @@ app.get("/update-player-score", function(request, response) {
   let numTensOnTossup = request.query["numTensOnTossup"]
   let numNegsOnTossup = request.query["numNegsOnTossup"]
 
-  db.updatePlayerScore(username, matchID, numPowersOnTossup, numTensOnTossup, numNegsOnTossup)
-  response.json(results)
+  db.updatePlayerScore(username, matchID, numPowersOnTossup, numTensOnTossup, numNegsOnTossup, (results) => {
+    response.json(results)
+  })
 })
 
 
