@@ -129,7 +129,6 @@
         let playerResult = await response.json()
         console.log("Player Result:" + playerResult)
         alert("Successfully added " + username + " with major " + major + " and minor " + minor + "! You can now return to the homepage to start a match or stay on this page to create new teams and players.")
-				//redirectToMatch(await response.json())
 			},
 			// Error
 			(error) => {
@@ -160,8 +159,6 @@
         let teamResult = await response.json()
         console.log("Team Result:" + teamResult)
         alert("Your new team's ID is " + teamResult["insertId"] + ". Please save it somewhere! You can now return to the homepage to start a match or stay on this page to create new teams and players.")
-        
-				//redirectToMatch(await response.json())
 			},
 			// Error
 			(error) => {

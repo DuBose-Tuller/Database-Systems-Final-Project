@@ -42,21 +42,11 @@ app.get('/create-match', function(request, response){
 
     db.createNewMatch(homeID, awayID, (results) => {
         response.json(results)
-        //response.send(results)
-        //response.redirect("/get-match?matchID=" + results.insertId);
     })
 
  
 });
 
-// app.get("/get-players-from-match", function(request, response) {
-//     let matchID = request.query["matchID"]
-
-//     db.getPlayersFromMatch(matchID, (results) => {
-//       console.log(results)
-//       response.json(results);
-//     })
-// });
 
 app.get("/match", function(request, response) {
     let matchID = request.query["matchID"]
@@ -138,18 +128,3 @@ app.listen(port, () => console.log('Server is starting on PORT,', port))
 process.on('exit', () => {
     db.disconnect()
 })
-
-// fetch('https://www.qbreader.org/api/random-tossup')
-//   .then(response => {
-//     if (!response.ok) {
-//       throw new Error('Network response failed');
-//     }
-//     return response.json();
-//   })
-//   .then(data => {
-//     // Process and use the retrieved data in your application
-//     console.log(data);
-//   })
-//   .catch(error => {
-//     console.error('There was a problem with the fetch operation:', error);
-//   });

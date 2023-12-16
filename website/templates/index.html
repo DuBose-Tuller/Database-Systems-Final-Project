@@ -50,11 +50,9 @@
 		});
 
 		responsePromise.then(
-			// Fulfilled
 			async (response) => {
 				populateListPlayer(await response.json())
 			},
-			// Error
 			(error) => {
 				alert("Cannot obtain players")
 			})
@@ -71,24 +69,17 @@
 		});
 
 		responsePromise.then(
-			// Fulfilled
 			async (response) => {
-				// console.log("Got a response for match creation!")
-				// console.log(await response)
-				// console.log(await response.insertId)
 				let dbResult = await response.json()
 				console.log(dbResult)
 				window.location.replace("/match?matchID=" + dbResult.insertId)
 			},
-			// Error
 			(error) => {
 				alert("Failed to start match")
 				console.log(error)
 			})
 	}
 
-	// For testing in the HTML world
-	// <!-- <button type="button" onclick="populateList([['a', 'b'], ['c', 'd']])"> -->
 	function populateListPlayer(results) {
 		let players = document.getElementById("playerList")
 

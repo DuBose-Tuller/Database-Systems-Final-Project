@@ -23,9 +23,6 @@ function queryCallback(callback) {
 		console.log(results)
 		callback(results);
 	});
-
-	// With parameters:
-	// "... WHERE name = ?", ['Fernanda'], (error ...)
 }
 
 function disconnect() {
