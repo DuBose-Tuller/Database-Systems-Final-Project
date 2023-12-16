@@ -114,14 +114,14 @@ function updatePlayerScore(numPowersOnTossup, numTensOnTossup, numNegsOnTossup, 
 	})
 }
 
-function getTeamStats(teamID, callback) {
+function getPlayerStats(playerID, callback) {
 	// Read the SQL file
 	let sqlQueries = fs.readFileSync('../tests/PlayerStats.sql', 'utf8');
 
 	// Split the file content by semicolon to get individual queries
 	let queriesArray = sqlQueries.split(';');
-	let query = queriesArray[1].replace("<team_id>", "?")
-	connection.query(query,[teamID], (error, results, fields) => {
+	let query = queriesArray[2].replace("<username>", "?")
+	connection.query(query,[playerID], (error, results, fields) => {
 		if (error) throw error;
 		callback(results);
 	});
@@ -146,7 +146,7 @@ export {
 	queryCallback,
 	getAllPlayersByName,
 	createNewMatch,
-	getTeamStats,
+	getPlayerStats,
 	createPlayer,
 	createTeam,
 	insertIntoPlaysOn,
