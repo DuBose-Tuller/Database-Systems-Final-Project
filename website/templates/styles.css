@@ -4,7 +4,7 @@
     overflow: hidden;
     width: 100%; /* Full width */
 }
-#home, #match, #teamStats, #register {
+#home, #match, #playerStats, #register {
     float: left;
     margin: 0;
     padding: 20px 16px; /* Increased padding for better visibility */
@@ -12,7 +12,7 @@
     color: #fff; /* White text for contrast */
     font-weight: bold; /* Bold font */
 }
-#home:hover, #match:hover, #teamStats:hover, #register:hover {
+#home:hover, #match:hover, #playerStats:hover, #register:hover {
     background-color: #555; /* Darker color on hover */
 }
 
@@ -97,3 +97,32 @@ body {
     background-color: #45a049; /* Darker background color when hovering over button */
 }
 
+.stats-table {
+    width: 75%;
+    border-collapse: collapse;
+    border: 2px solid #ccc;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header styles */
+  .stats-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+    padding: 12px;
+  }
+  
+  /* Row styles */
+  .stats-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  /* Alternating row colors */
+  .stats-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover effect */
+  .stats-table tbody tr:hover {
+    background-color: #e2e2e2;
+  }

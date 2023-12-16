@@ -42,3 +42,22 @@ WHERE
  	 
  GROUP BY player.username  
  ORDER BY player.username; 
+
+
+ SELECT 
+	player.username,
+	qb_match.match_id,
+	num_powers,
+	num_tens,
+	num_negs,
+	num_tossups_heard
+
+ FROM 
+ player INNER JOIN plays
+			ON player.username = plays.username 
+		INNER JOIN qb_match 
+			ON qb_match.match_id = plays.match_id 
+		INNER JOIN team
+			ON qb_match.home_id = team.team_id 
+
+ WHERE player.username = <username>;

@@ -74,10 +74,10 @@ app.get("/register", function(request, response) {
 });
 
 app.get("/stats", function(request, response) {
-    let teamID = request.query["teamID"];
+    let playerID = request.query["playerID"];
 
-    db.getTeamStats(teamID, (results) => {
-      response.json({"results": results})
+    db.getPlayerStats(playerID, (results) => {
+      response.json(results)
     });
 
 });
