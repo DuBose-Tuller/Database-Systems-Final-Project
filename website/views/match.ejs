@@ -98,16 +98,24 @@
 
   <body id="main-body">
     <div id="navbar">
-      <a id="home" href="/">Home</a>
+      <a id="home" href="/index.html">Home</a>
       <a id="teamStats" href="/teamStats.html">Team Stats</a>
       <a id="register" href="/register.html">Register</a>
     </div>
 
     <section id="content-section">
 
-      <h2><span id="greetingsMessage">Greetings! To start the match, click the "Get Next Tossup" button below! Before additional clicks of "Get Next Tossup" button, remember to enter the points of the players who got the tossup or negged!</span></h2>
-      
-      <h2><span id="tossupHeading">Tossup <span id="tossupNumber">0</span> <span id="tossupCategory"></span> <span id="tossupSubcategory"></span></h2>
+      <h2>
+        <span id="greetingsMessage">Greetings! To start the match, 
+        click the "Get Next Tossup" button below! Before additional clicks of "Get Next Tossup" button, 
+        remember to enter the points of the players who got the tossup or negged!
+        </span>
+      </h2>
+
+      <h2>
+        <span id="tossupHeading">Tossup <span id="tossupNumber">0</span>
+        <span id="tossupCategory"></span> <span id="tossupSubcategory"></span>
+      </h2>
 
       <div id="tossupTextAndAnswer">
         <p id="tossupText"></p>
@@ -115,13 +123,7 @@
       </div>
 
       
-      
-      <br>
-      <br>
-      <br>
-      <br>
-
-
+      <p>Players in Match:</p>
     <table>
       <tr>
         <th colspan="2"><%= results[0].name %></th>
@@ -144,9 +146,9 @@
             <% b-- %>
           <% } %>
     
-          <td><%= homePlayer %></td>
+          <td id="playerName"><%= homePlayer %></td>
           <td>
-            <select id="dropdown-home-<%= t %>" class="small-dropdown" onchange="saveValue(this)">
+            <select id="<%=results[t].username %>" class="small-dropdown" onchange="saveValue(this)">
               <option value="" selected></option>
               <option value="-5">-5</option>
               <option value="10">10</option>
@@ -155,7 +157,7 @@
           </td>
           <td><%= awayPlayer %></td>
           <td>
-            <select id="dropdown-away-<%= b %>" class="small-dropdown" onchange="saveValue(this)">
+            <select id="<%=results[b].username %>" class="small-dropdown" onchange="saveValue(this)">
               <option value="" selected></option>
               <option value="-5">-5</option>
               <option value="10">10</option>
@@ -171,14 +173,10 @@
 
     <div id="buttonContainer">
       <button onclick="getTossup()">Get Next Tossup</button>
-      <button onclick="getAllSavedValues()">End Match</button>
+      <!-- <button onclick="getAllSavedValues()">End Match</button> -->
     </div>
 
-
-
     </section>
-
-	<!-- <input type="submit" onclick="getPlayerAndTeamInfo()"></input> -->
   </body>
 </html>
 
@@ -206,6 +204,8 @@
 
     // Function to handle the API call
     function getTossup() {
+      // Update the scores in the database
+      updateScores();
 
       var xhr = new XMLHttpRequest();
       xhr.open('GET', 'https://www.qbreader.org/api/random-tossup', true);
@@ -231,6 +231,21 @@
       
       xhr.send();
       
+      
+      updateStylingForTossup()
+
+      
+
+      
+
+      // Reset all dropdowns to their initial state
+      var dropdowns = document.querySelectorAll('.small-dropdown');
+      dropdowns.forEach(function(dropdown) {
+        dropdown.selectedIndex = 0; // Set to the first option (hidden option)
+      });
+    }
+
+    function updateStylingForTossup() {
       // Make the initial greeting message invisible
       var greetingsElement = document.getElementById("greetingsMessage")
       greetingsElement.style.display = "none"
@@ -254,16 +269,6 @@
       // Put border around table
       var tossupTextAndAnswerElement = document.getElementById("tossupTextAndAnswer")
       tossupTextAndAnswerElement.style.border = "2px solid black";
-
-
-      // Update the scores in the database
-      updateScores();
-
-      // Reset all dropdowns to their initial state
-      var dropdowns = document.querySelectorAll('.small-dropdown');
-      dropdowns.forEach(function(dropdown) {
-        dropdown.selectedIndex = 0; // Set to the first option (hidden option)
-      });
     }
 
     function boldPowerText(tossupText) {
@@ -273,10 +278,83 @@
       return tossupText
     }
 
-
     function updateScores() {
+      for (var row = 1; row < 6 ; row++) {
+        teamOnePlayerRow = table.rows[row];
+        
+        if (teamOnePlayerRow.cells[0].innertext != "") {
+          teamOnePlayerCell = teamOnePlayerRow.cells[1]
+          teamOnePlayerDropdown = teamOnePlayerCell.getElementsByTagName("select")[0]
+          updatePlayerScore(teamOnePlayerDropdown);
+        }
+
+        if (teamTwoPlayerRow.cells[2].innertext != "") {
+          teamOnePlayerCell = teamOnePlayerRow.cells[3]
+          teamTwoPlayerDropdown = teamTwoPlayerCell.getElementsByTagName("select")[0]
+          updatePlayerScore(teamTwoPlayerDropdown);
+        }
+      }
+	  }
+
+    function updatePlayerScore(playerDropdown) {
       console.log("here")
-    };
+
+      let playerPoints = playerDropdown.value
+      
+      let username = playerDropdown.id;
+      let matchID = NULL;
+      let numPowersOnTossup = (playerPoints == 15) ? 1 : 0;
+      let numTensOnTossup = (playerPoints == 10) ? 1 : 0;
+      let numNegsOnTossup = (playerPoints == -5) ? 1 : 0;
+      
+      const responsePromise = fetch("/update-player-score/?username=" + username + 
+                                                          "&matchID=" + matchID + 
+                                                          "&numPowersOnTossup=" + numPowersOnTossup + 
+                                                          "&numTensOnTossup=" + numTensOnTossup + 
+                                                          "&numNegsOnTossup=" + numNegsOnTossup, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      });
+
+      responsePromise.then(
+        // Fulfilled
+        async (response) => {
+          // console.log("Got a response for match creation!")
+          // console.log(await response)
+          // console.log(await response.insertId)
+          let dbResult = await response.json()
+          console.log(dbResult)
+          window.location.replace("/match?matchID=" + dbResult.insertId)
+        },
+        // Error
+        (error) => {
+          alert("Failed to start match")
+          console.log(error)
+        })
+    }
+
+      /*
+        for each player:
+          insertPlayerScores(
+            username = get from the id of the table row
+            match_id = get from the match_id passed into the view page
+            num_powers = 1 if player got 15 points
+            num_tens = 1 if power got 10 points
+            num_negs = 1 if power got -5 points
+            num_tossups_heard = 1
+          )
+
+
+      What do we need for the database? 
+      - username - 
+      - match_id - 
+      - num_powers - Increment the value in the database row 
+      - num_tens - 
+      - num_negs - 
+      - num_tossups_heard - 
+      */
 
     // Attach the API call function to the button click event
     document.getElementById('getTossup').addEventListener('click', callAPI);

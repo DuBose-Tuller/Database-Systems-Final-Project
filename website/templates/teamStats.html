@@ -42,8 +42,9 @@
 		responsePromise.then(
 			// Fulfilled
 			async (response) => {
-				console.log(response)
-				populateTeamStats(await response.json())
+				let result = await response.json()
+				console.log(result)
+				populateTeamStats(result)
 			},
 			// Error
 			(error) => {
@@ -52,6 +53,7 @@
     }
 
     function populateTeamStats(results) {
+		console.log("RE SULTS")
         let statsTable = document.getElementById("teamStatsTable")
 		console.log(results);
 

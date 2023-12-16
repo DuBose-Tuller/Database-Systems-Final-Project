@@ -95,6 +95,10 @@ function insertIntoPlaysOn(playerUsername, teamID) {
 	connection.query("INSERT INTO playsOn VALUES (?, ?)", [playerUsername, teamID])
 };
 
+function updatePlayerScore(numPowersOnTossup, numTensOnTossup, numNegsOnTossup, username, matchID) {
+	connection.query("UPDATE plays SET num_powers = num_powers + ?, num_tens = num_tens = ?, num_negs = num_negs + ? WHERE username = ? AND match_id = matchID")
+}
+
 function getTeamStats(teamID, callback) {
 	// Read the SQL file
 	let sqlQueries = fs.readFileSync('../tests/PlayerStats.sql', 'utf8');
