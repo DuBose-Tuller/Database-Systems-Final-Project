@@ -60,13 +60,9 @@ app.get('/create-match', function(request, response){
 
 app.get("/match", function(request, response) {
     let matchID = request.query["matchID"]
-    console.log("Hit the get-match endpoint")
-    console.log(matchID)
 
     // Query the database to get info about the match
     db.getPlayersFromMatch(matchID, (results) => {
-      console.log("RESULTS")
-      console.log(results);
       response.render('match', {"results": results})
   })
 
@@ -124,6 +120,18 @@ app.get("/create-team", function(request, response) {
     response.json(results)
   })
 })
+
+app.get("/update-player-score", function(request, response) {
+  let username = request.query["username"]
+  let matchID = request.query["matchID"]
+  let numPowersOnTossup = request.query["numPowersOnTossup"]
+  let numTensOnTossup = request.query["numTensOnTossup"]
+  let numNegsOnTossup = request.query["numNegsOnTossup"]
+
+  db.updatePlayerScore(username, matchID, numPowersOnTossup, numTensOnTossup, numNegsOnTossup)
+  response.json(results)
+})
+
 
 app.listen(port, () => console.log('Server is starting on PORT,', port))
 
