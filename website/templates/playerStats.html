@@ -60,6 +60,8 @@
 			<th>Powers</th>
 			<th>Tens</th>
 			<th>Negs</th>
+			<th>TUH</th>
+			<th>% Correct</th>
 		</tr>	
 	</table>
 
@@ -96,6 +98,12 @@
         let statsTable = document.getElementById("playerStatsTable")
 		console.log(stats);
 
+		// Clear existing rows (except header)
+		var rowCount = statsTable.rows.length;
+		for (var i = rowCount - 1; i > 0; i--) {
+			statsTable.deleteRow(i);
+		}
+
 		stats.forEach(match => {
 			let matchRow = document.createElement("tr");
 
@@ -103,16 +111,24 @@
 			let matchPowers = document.createElement("td");
 			let matchTens = document.createElement("td");
 			let matchNegs = document.createElement("td");
+			let matchTUH = document.createElement("td");
+			let matchPercentCorrect = document.createElement("td");
 
 			matchID.innerText = match["match_id"];
 			matchPowers.innerText = match["num_powers"];
 			matchTens.innerText = match["num_tens"];
 			matchNegs.innerText = match["num_negs"];
+			let TUH = match["num_tossups_heard"];
+			matchTUH.innerText = TUH
+			let percentCorrect = ((match["num_powers"]+match["num_tens"])/TUH)*100
+			matchPercentCorrect.innerText = percentCorrect
 
 			matchRow.appendChild(matchID);
 			matchRow.appendChild(matchPowers);
-			matchRow.appendChild(matchTens)
-			matchRow.appendChild(matchNegs)
+			matchRow.appendChild(matchTens);
+			matchRow.appendChild(matchNegs);
+			matchRow.appendChild(matchTUH);
+			matchRow.appendChild(matchPercentCorrect);
 
 			statsTable.appendChild(matchRow); // Append the row to the table
     	});
