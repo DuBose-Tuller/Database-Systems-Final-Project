@@ -77,7 +77,7 @@ app.get("/stats", function(request, response) {
     let teamID = request.query["teamID"];
 
     db.getTeamStats(teamID, (results) => {
-      response.json(results)
+      response.json({"results": results})
     });
 
 });

@@ -45,8 +45,8 @@
 
     <div class="input-container">
       <label for="major">Major: </label>
-      <select name="major" id="major" optional>
-        <option value=""></option>
+      <select name="major" id="major" required>
+        <option value="" disabled selected>(select)</option>
         <option value="Science">Science</option>
         <option value="History">History</option>
         <option value="Literature">Literature</option>
@@ -55,8 +55,8 @@
 
     <div class="input-container">
       <label for="minor">Minor: </label>
-      <select name="minor" id="minor" optional>
-        <option value=""></option>
+      <select name="minor" id="minor" required>
+        <option value="" disabled selected>(select)</option>
         <option value="RMP">Religion, Mythology, and Philosophy</option>
         <option value="Geography">Geography</option>
         <option value="FA">Fine Arts</option>
@@ -133,7 +133,7 @@
 			},
 			// Error
 			(error) => {
-				alert("Failed to start match")
+				alert("Failed to add player. Make sure that the username is unique.")
 				console.log(error)
 			})
 	}
